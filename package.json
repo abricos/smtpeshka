@@ -1,0 +1,54 @@
+{
+  "name": "smtpeshka",
+  "description": "Virtual SMTP-server for debugging mail messages third-party applications",
+  "version": "0.0.1",
+  "homepage": "https://github.com/abricos/smtpeshka",
+  "author": {
+    "name": "Alexander Kuzmin",
+    "email": "roosit@abricos.org"
+  },
+  "main": "smtpeshka.js",
+  "bin": {
+    "smpeshka": "./bin/smtpeshka"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/abricos/smtpeshka.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abricos/smtpeshka/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/abricos/smtpeshka/blob/master/LICENSE"
+    }
+  ],
+  "scripts": {
+    "start": "gulp",
+    "test": "gulp test"
+  },
+  "engines": {
+    "node": ">= 0.10.24"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-mocha": "^2.0.0",
+    "should": "^4.5.0"
+  },
+  "keywords": [
+    "smtp",
+    "debug",
+    "virtual",
+    "mail",
+    "test",
+    "tester"
+  ],
+  "dependencies": {
+    "Haraka": "^2.5.0",
+    "fs-extra": "^0.14.0",
+    "mailparser": "^0.4.8",
+    "nopt": "^3.0.1",
+    "tree-config": "^0.1.1"
+  }
+}
