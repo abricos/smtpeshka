@@ -33,6 +33,31 @@ header .mn > li > a {
     font-size: 12px;
 }
 
+header .navbar-scrolling {
+    background-color: #005b9e;
+    overflow: hidden;
+}
+header .navbar-scrolling > .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+header .navbar-scrolling .navbar-header {
+    padding-left: 15px;
+}
+header .navbar-scrolling .navbar-header a {
+    color: #ffffff;
+}
+header .navbar-scrolling a.htitle {
+    font-size: 22px;
+    display: block;
+}
+header .navbar-scrolling a.htitle:hover {
+    text-decoration: none;
+}
+header .navbar-scrolling p {
+    color: #ffffff;
+}
+
 #doc > .container {
     min-height: 400px;
 }
@@ -90,4 +115,18 @@ footer .footer-bottom:before {
     bottom: 60px;
     border-top: 1px solid #234c72;
     border-bottom: 1px solid #587c99;
+}
+
+/* * * * * * Fork me on GitHub * * * * */
+.github-ribbon {
+    position: fixed;
+    top: 0;
+    right: 0;
+    border: 0;
+    z-index: 1404;
+}
+@media only screen and (max-width: 1190px) {
+    .github-ribbon {
+        display: none;
+    }
 }
