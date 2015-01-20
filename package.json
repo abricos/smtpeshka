@@ -31,11 +31,6 @@
   "engines": {
     "node": ">= 0.10.24"
   },
-  "devDependencies": {
-    "gulp": "^3.8.10",
-    "gulp-mocha": "^2.0.0",
-    "should": "^4.5.0"
-  },
   "keywords": [
     "smtp",
     "debug",
@@ -44,11 +39,18 @@
     "test",
     "tester"
   ],
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-mocha": "^2.0.0",
+    "should": "^4.5.0"
+  },
   "dependencies": {
     "Haraka": "^2.5.0",
     "fs-extra": "^0.14.0",
     "mailparser": "^0.4.8",
     "nopt": "^3.0.1",
-    "tree-config": "^0.1.1"
+    "through2": "^0.6.3",
+    "tree-config": "~0.2.1",
+    "vinyl-fs": "^0.3.13"
   }
 }

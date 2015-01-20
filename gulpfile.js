@@ -13,11 +13,7 @@ var opts = {
     }
 };
 
-gulp.task('test', ['test-net']);
-
-gulp.task('default', ['test', 'watch']);
-
-gulp.task('test-net', function(){
+gulp.task('test', function(){
     return gulp
         .src(['test/*.js'])
         .pipe(mocha(opts.mocha));
@@ -29,3 +25,5 @@ gulp.task('watch', function(){
         console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 });
+
+gulp.task('default', ['test', 'watch']);

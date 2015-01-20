@@ -19,20 +19,19 @@ describe('SMTPeshka Build configs for Haraka', function(){
     });
 
     it('build Haraka configs in `[CWD]/tmp`', function(done){
-        var tempDir = path.join(process.cwd(), 'tmp');
+        var tempDir = path.join(process.cwd(), 'tmp', 'smtpeshka', 'haraka');
         var appConfig = harakaConfig.appConfig;
 
-        appConfig.set('temp.dir', tempDir);
+        appConfig.set('smtpeshka.haraka.config.build.dir', tempDir);
 
         var buildDir = appConfig.get('smtpeshka.haraka.config.build.dir');
         should(buildDir).be.type('string');
 
-        harakaConfigsDir = harakaConfig.build();
+        harakaConfigsDir = harakaConfig.build(function(err){
+            // should.not.exist(err);
+            done();
+        });
 
-        var exist = fs.existsSync(harakaConfigsDir);
-        exist.should.be.ok;
-
-        done();
     });
 
 });
