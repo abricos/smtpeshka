@@ -1,8 +1,93 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding-top: 30px;
 }
 
-a {
-  color: #00B7FF;
+@media (min-width: 992px) {
+    body .container {
+        width: 940px;
+    }
+}
+
+@media (min-width: 1200px) {
+    body .container {
+        width: 940px;
+    }
+}
+
+header .navbar-top {
+    background-color: #003052;
+}
+
+header .mn {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header .mn > li > a {
+    color: #FFFFFF;
+    display: block;
+    line-height: 30px;
+    padding: 0 20px 0 0;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+#doc > .container {
+    min-height: 400px;
+}
+
+footer {
+    background: #2f577a url('/images/bg_footer.png') repeat-x 0;
+    position: relative;
+}
+
+footer .footer h3 {
+    border-bottom: 1px solid #BAC1C8;
+    color: #d6ebf7;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    padding: 40px 0 10px;
+    text-transform: uppercase;
+}
+
+footer ul {
+    font-size: 13px;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 15px;
+    color: #d6ebf7;
+}
+
+footer ul li a {
+    padding: 0 0 5px 0;
+    display: block;
+}
+
+footer a {
+    color: #d6ebf7;
+}
+
+footer .footer-bottom {
+    color: #bdd1db;
+    font-size: 12px;
+    height: 60px;
+    padding-top: 15px;
+}
+
+footer .footer-bottom a {
+    color: #00c0fd;
+}
+
+footer .footer-bottom:before {
+    content: "";
+    height: 0;
+    width: 100%;
+    left: 0;
+    position: absolute;
+    bottom: 60px;
+    border-top: 1px solid #234c72;
+    border-bottom: 1px solid #587c99;
 }
