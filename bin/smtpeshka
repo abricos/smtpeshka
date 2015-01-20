@@ -3,7 +3,6 @@
 var fs = require('fs'),
     path = require('path'),
     nopt = require("nopt"),
-    os = require('os'),
     base = path.join(__dirname, '..'),
     ver = JSON.parse(fs.readFileSync(base + '/package.json', 'utf8'))['version'],
     knownOpts = {
@@ -18,7 +17,7 @@ var fs = require('fs'),
 
 var usage = [
     "\033[32;40msmtpeshka.js\033[0m — Virtual SMTP-server for debugging mail messages third-party applications",
-    "Usage: smtpeshka [options] [path]",
+    "Usage: smtpeshka [options]",
     "Options:",
     "\t-v, --version \t\tOutputs version number",
     "\t-h, --help    \t\tOutputs this help message"

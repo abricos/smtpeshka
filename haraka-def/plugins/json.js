@@ -15,7 +15,7 @@ exports.hook_queue = function(next, connection){
 
     var cfg = this.config.get('json.ini');
 
-    var tmpdir = cfg.main.tmpdir || '/tmp/send-emails';
+    var saveToDir = cfg.main.saveto || '/tmp/smtpeshka/send-emails';
 
     var mailparser = new MailParser();
 
@@ -24,9 +24,9 @@ exports.hook_queue = function(next, connection){
             next(OK);
         }
 
-        var file = path.join(tmpdir, obj.messageId + '.json');
+        var file = path.join(saveToDir, obj.messageId + '.json');
         try {
-            fse.ensureDirSync(tmpdir);
+            fse.ensureDirSync(saveToDir);
             fse.writeJSONFileSync(file, obj);
         } catch (err) {
             connection.logerror(self, 'Error writing message to JSON file: ' + err.message);
