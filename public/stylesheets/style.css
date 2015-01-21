@@ -83,6 +83,11 @@ header .nav .open > a:focus {
     min-height: 400px;
 }
 
+.dl-horizontal dt,
+.dl-horizontal dd{
+    margin-bottom: 5px;
+}
+
 footer {
     background: #2f577a url('/images/bg_footer.png') repeat-x 0;
     position: relative;
