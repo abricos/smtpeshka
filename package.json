@@ -42,9 +42,14 @@
     "tester"
   ],
   "devDependencies": {
+    "del": "^1.1.1",
     "gulp": "^3.8.10",
+    "gulp-coverage": "^0.3.32",
+    "gulp-jsdoc": "^0.1.4",
     "gulp-mocha": "^2.0.0",
-    "should": "^4.5.0"
+    "gulp-subtree": "^0.1.0",
+    "should": "^4.5.0",
+    "vinyl-paths": "^1.0.0"
   },
   "dependencies": {
     "Haraka": "^2.5.0",
