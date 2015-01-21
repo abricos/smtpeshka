@@ -58,6 +58,27 @@ header .navbar-scrolling p {
     color: #ffffff;
 }
 
+header .horz-menu-line {
+    background-color: #005b9e;
+    border-top: #ffffff solid 1px;
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+header .navbar-nav > li > a {
+    color: #ffffff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+header .nav > li.active,
+header .nav > li > a:hover,
+header .nav > li > a:focus,
+header .nav > li:hover > a,
+header .nav .open > a,
+header .nav .open > a:hover,
+header .nav .open > a:focus {
+    background: #00538f;
+}
+
 #doc > .container {
     min-height: 400px;
 }
