@@ -1,7 +1,7 @@
 {
   "name": "smtpeshka",
   "description": "Virtual SMTP-server for debugging mail messages third-party applications",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "https://github.com/abricos/smtpeshka",
   "author": {
     "name": "Alexander Kuzmin",
@@ -67,8 +67,10 @@
     "mailparser": "^0.4.8",
     "morgan": "^1.5.1",
     "nopt": "^3.0.1",
+    "serve-favicon": "^2.2.0",
     "through2": "^0.6.3",
     "tree-config": "^0.2.2",
+    "tree-config-parser": "^0.1.0",
     "vinyl-fs": "^0.3.13"
   }
 }
