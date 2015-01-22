@@ -6,6 +6,7 @@ var fse = require('fs-extra');
 var path = require('path');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
+var request = require('request');
 
 var testConfig = require('./lib/testConfig');
 
@@ -84,12 +85,67 @@ describe('SMTPeshka Servers', function(){
 
     describe('SMTPeshka REST API functions', function(){
 
-        it('should request e-mail list', function(done){
+        it('should request e-mail list (http://localhost:8025/api)', function(done){
 
-            console.log(fileSavedEMail);
-            console.log(email);
+            var port = config.get('smtpeshka.web.port');
+            var host = 'localhost';
+            var uri = 'http://' + host + ':' + port + '/api';
 
-            done();
+            request(uri, function(err, response, body){
+                should.not.exist(err);
+                should.exist(response);
+
+                should.equal(response.statusCode, 200);
+
+                var json = JSON.parse(body);
+                should.exist(json);
+                json.should.be.an.Array;
+
+                done();
+            });
         });
+
+        it('should request e-mail by messageId (http://localhost:8025/api/email/:messageId)', function(done){
+
+            var port = config.get('smtpeshka.web.port');
+            var host = 'localhost';
+            var uri = 'http://' + host + ':' + port + '/api/email/' + messageId;
+
+            request(uri, function(err, response, body){
+                should.not.exist(err);
+                should.exist(response);
+
+                should.equal(response.statusCode, 200);
+
+                var json = JSON.parse(body);
+                should.exist(json);
+
+                should.equal(json.messageId, messageId);
+
+                done();
+            });
+        });
+
+        it('should request status (http://localhost:8025/api/status)', function(done){
+
+            var port = config.get('smtpeshka.web.port');
+            var host = 'localhost';
+            var uri = 'http://' + host + ':' + port + '/api/status';
+
+            request(uri, function(err, response, body){
+                should.not.exist(err);
+                should.exist(response);
+
+                should.equal(response.statusCode, 200);
+
+                var json = JSON.parse(body);
+                should.exist(json);
+
+                should.equal(json.web.port, port);
+
+                done();
+            });
+        });
+
     });
 });
