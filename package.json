@@ -1,7 +1,7 @@
 {
   "name": "smtpeshka",
   "description": "Virtual SMTP-server for debugging mail messages third-party applications",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/abricos/smtpeshka",
   "author": {
     "name": "Alexander Kuzmin",
@@ -22,7 +22,7 @@
   ],
   "main": "smtpeshka.js",
   "bin": {
-    "smpeshka": "./bin/smtpeshka"
+    "smtpeshka": "./bin/smtpeshka"
   },
   "scripts": {
     "start": "gulp",
@@ -55,7 +55,7 @@
     "vinyl-paths": "^1.0.0"
   },
   "dependencies": {
-    "Haraka": "git://github.com/roosit/Haraka.git#prog_stop",
+    "Haraka": "git://github.com/roosit/Haraka.git#smtpeshka",
     "body-parser": "^1.10.2",
     "bootstrap": "^3.3.2",
     "cookie-parser": "^1.3.3",
