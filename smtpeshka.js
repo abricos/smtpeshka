@@ -4,22 +4,49 @@ var path = require('path');
 
 var HarakaConfig = require('./lib/HarakaConfig');
 
-var harakaConfig = new HarakaConfig();
+var _servers;
 
-harakaConfig.build(function(err, harakaConfigDir){
+module.exports.start = function(callback){
 
-    var base = path.join(__dirname);
-    var webServer = path.join(base, 'lib/web/index.js');
+    var harakaConfig = new HarakaConfig();
 
-    // start web server
-    require(webServer);
+    harakaConfig.build(function(err, harakaConfigDir){
+        if (_servers){
+            return callback ? callback(_servers) : null;
+        }
 
-    var harakaPath = path.join(base, 'node_modules/Haraka/haraka.js');
+        var base = path.join(__dirname);
+        var webServerPath = path.join(base, 'lib/web/index.js');
 
-    process.argv[1] = harakaPath;
-    process.env.HARAKA = harakaConfigDir;
+        // start web server
+        var webServer = require(webServerPath);
 
-    //start SMTP Hakara server
-    require(harakaPath);
+        var harakaProgDir = path.join(base, 'node_modules/Haraka')
 
-});
+        var harakaPath = path.join(harakaProgDir, 'server.js');
+
+        process.argv[1] = harakaPath;
+        process.env.HARAKA = harakaConfigDir;
+
+        // start SMTP Hakara server
+        var harakaServer = require(harakaPath);
+        harakaServer.createServer();
+
+        _servers = {
+            web: webServer,
+            haraka: harakaServer
+        };
+
+        return callback ? callback(_servers) : null;
+    });
+
+};
+
+module.exports.stop = function(){
+    if (!_servers){
+        return;
+    }
+    _servers.web.close();
+    _servers.haraka.close();
+};
+

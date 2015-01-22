@@ -1,7 +1,7 @@
+var MailParser = require("mailparser").MailParser;
 var fs = require('fs');
 var fse = require('fs-extra');
 var path = require('path');
-var MailParser = require("mailparser").MailParser;
 
 exports.hook_rcpt = function(next, connection, params){
     next(OK);

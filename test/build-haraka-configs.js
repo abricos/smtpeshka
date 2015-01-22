@@ -4,11 +4,22 @@ var fs = require('fs');
 var should = require('should');
 var path = require('path');
 
+var testConfig = require('./lib/testConfig');
 var HarakaConfig = require('../lib/HarakaConfig');
-var harakaConfig,
-    harakaConfigsDir;
 
 describe('SMTPeshka Build configs for Haraka', function(){
+
+    var harakaConfig;
+
+    before(function(done){
+        testConfig();
+        done();
+    });
+
+    after(function(done){
+        testConfig.clean();
+        done();
+    });
 
     it('create instance', function(done){
         harakaConfig = new HarakaConfig();
@@ -18,17 +29,16 @@ describe('SMTPeshka Build configs for Haraka', function(){
         done();
     });
 
-    it('build Haraka configs in `[CWD]/tmp`', function(done){
-        var tempDir = path.join(process.cwd(), 'tmp', 'smtpeshka', 'haraka');
+    it('build Haraka configs to `process.cwd()/tmp`', function(done){
         var appConfig = harakaConfig.appConfig;
-
-        appConfig.set('smtpeshka.haraka.config.build.dir', tempDir);
 
         var buildDir = appConfig.get('smtpeshka.haraka.config.build.dir');
         should(buildDir).be.type('string');
 
-        harakaConfigsDir = harakaConfig.build(function(err){
-            // should.not.exist(err);
+        harakaConfig.build(function(err, harakaConfigsDir){
+            should.not.exist(err);
+            should(harakaConfigsDir).be.type('string');
+
             done();
         });
 

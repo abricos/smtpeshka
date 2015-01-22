@@ -33,5 +33,6 @@ if (parsed.version){
 
     var smtpeshkaPath = path.join(base, 'smtpeshka.js');
 
-    require(smtpeshkaPath);
+    var server = require(smtpeshkaPath);
+    server.start();
 }
