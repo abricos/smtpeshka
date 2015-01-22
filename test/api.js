@@ -2,6 +2,7 @@
 
 var should = require('should');
 var fs = require('fs');
+var fse = require('fs-extra');
 var path = require('path');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
@@ -9,7 +10,6 @@ var smtpTransport = require('nodemailer-smtp-transport');
 var testConfig = require('./lib/testConfig');
 
 var smtpeshka = require(path.join(__dirname, '../smtpeshka.js'));
-;
 
 describe('SMTPeshka Servers', function(){
 
@@ -17,10 +17,11 @@ describe('SMTPeshka Servers', function(){
     var email = {
         from: 'from@smtpeshka.com',
         to: 'to@smtpeshka.com',
-        subject: 'hello',
-        text: 'hello World!'
+        subject: 'Hello my friend',
+        text: 'This is a very important message for you!'
     };
     var messageId;
+    var fileSavedEMail;
 
     before(function(done){
         config = testConfig();
@@ -58,7 +59,24 @@ describe('SMTPeshka Servers', function(){
         it('should be e-mail saved in a JSON file', function(done){
 
             var sentDir = config.get('smtpeshka.transport.json.saveto');
-            // var file=path.
+            var file = path.join(sentDir, messageId + '.json');
+            var fExist = fs.existsSync(file);
+
+            fExist.should.be.true;
+
+            fse.readJsonFile(file, function(err, json){
+                should.not.exist(err);
+                should.exist(json);
+
+                fileSavedEMail = json;
+
+                done();
+            });
+        });
+
+        it('should be coincident values between sent and JSON emails', function(done){
+            should.equal(messageId, fileSavedEMail.messageId);
+            should.equal(email.subject, fileSavedEMail.subject);
 
             done();
         });
@@ -67,6 +85,10 @@ describe('SMTPeshka Servers', function(){
     describe('SMTPeshka REST API functions', function(){
 
         it('should request e-mail list', function(done){
+
+            console.log(fileSavedEMail);
+            console.log(email);
+
             done();
         });
     });
