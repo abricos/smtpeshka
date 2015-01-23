@@ -14,7 +14,7 @@ the address. E-mail message are written to JSON file.
 
 Installation is fairly straightforward, just install the npm module:
 
-    $ npm install -g smtpeshka
+    $ [sudo] npm install -g smtpeshka
 
 ## Running smtpeshka
 
