@@ -32,7 +32,7 @@ describe('SMTPeshka Build configs for Haraka', function(){
     it('build Haraka configs to `process.cwd()/tmp`', function(done){
         var appConfig = harakaConfig.appConfig;
 
-        var buildDir = appConfig.get('smtpeshka.haraka.config.build.dir');
+        var buildDir = appConfig.get('haraka.config.build.dir');
         should(buildDir).be.type('string');
 
         harakaConfig.build(function(err, harakaConfigsDir){

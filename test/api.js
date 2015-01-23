@@ -39,7 +39,7 @@ describe('SMTPeshka Servers', function(){
     describe('SMTP-server by Haraka', function(){
 
         it('should be sended e-mail', function(done){
-            var port = config.get('smtpeshka.SMTP.port');
+            var port = config.get('SMTP.port');
 
             var transporter = nodemailer.createTransport(smtpTransport({
                 port: port,
@@ -59,7 +59,7 @@ describe('SMTPeshka Servers', function(){
 
         it('should be e-mail saved in a JSON file', function(done){
 
-            var sentDir = config.get('smtpeshka.transport.json.saveto');
+            var sentDir = config.get('transport.json.saveto');
             var file = path.join(sentDir, messageId + '.json');
             var fExist = fs.existsSync(file);
 
@@ -87,7 +87,7 @@ describe('SMTPeshka Servers', function(){
 
         it('should request e-mail list (http://localhost:8025/api)', function(done){
 
-            var port = config.get('smtpeshka.web.port');
+            var port = config.get('web.port');
             var host = 'localhost';
             var uri = 'http://' + host + ':' + port + '/api';
 
@@ -107,7 +107,7 @@ describe('SMTPeshka Servers', function(){
 
         it('should request e-mail by messageId (http://localhost:8025/api/email/:messageId)', function(done){
 
-            var port = config.get('smtpeshka.web.port');
+            var port = config.get('web.port');
             var host = 'localhost';
             var uri = 'http://' + host + ':' + port + '/api/email/' + messageId;
 
@@ -128,7 +128,7 @@ describe('SMTPeshka Servers', function(){
 
         it('should request status (http://localhost:8025/api/status)', function(done){
 
-            var port = config.get('smtpeshka.web.port');
+            var port = config.get('web.port');
             var host = 'localhost';
             var uri = 'http://' + host + ':' + port + '/api/status';
 

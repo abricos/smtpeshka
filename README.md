@@ -1,4 +1,6 @@
-# smtpeshka
+# smtpeshka [![Build Status](https://travis-ci.org/abricos/smtpeshka.svg?branch=master)](https://travis-ci.org/abricos/smtpeshka)
+
+[![NPM](https://nodei.co/npm/smtpeshka.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/smtpeshka/)
 
 Virtual SMTP-server for debugging mail messages third-party applications
 
@@ -140,7 +142,36 @@ Status SMTPeshka
       }
     }
 
+
+## Configuration
+
+SMTPeshka can be configured using JSON in a `smtpeshka.json` in directory run the SMTPehska.
+For example:
+
+    "log": {
+        "console": {
+            "level": "debug"
+        }
+    },
+    "web": {
+        "port": 12580
+    },
+    "SMTP": {
+        "port": 12525
+    },
+    "transport": {
+        "json": {
+            "saveto": "<%= directory %>/my-emails"
+        }
+    },
+    "haraka": {
+        "config": {
+            "build": {
+                "dir": "<%= directory %>/tmp"
+            }
+        }
+    }
+
+
 ## License
 MIT
-
-

@@ -24,8 +24,8 @@ describe('SMTPeshka Config', function(){
         done();
     });
 
-    it('option `smtpeshka.haraka.prog.dir` (dir exist)', function(done){
-        var option = config.get('smtpeshka.haraka.prog.dir');
+    it('option `haraka.prog.dir` (dir exist)', function(done){
+        var option = config.get('haraka.prog.dir');
 
         should(option).be.type('string');
 
@@ -35,8 +35,8 @@ describe('SMTPeshka Config', function(){
         done();
     });
 
-    it('option `smtpeshka.haraka.config.source.dir` (dir exist)', function(done){
-        var option = config.get('smtpeshka.haraka.config.source.dir');
+    it('option `haraka.config.source.dir` (dir exist)', function(done){
+        var option = config.get('haraka.config.source.dir');
 
         should(option).be.type('string');
 

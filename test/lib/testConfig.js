@@ -15,9 +15,10 @@ var testConfig = function(){
     var config = treeConfig.instance();
 
     config.set('log.console.level', 'warn');
-    config.set('temp.dir', tempDir);
-    config.set('smtpeshka.transport.json.saveto', path.join(tempDir, 'sent-emails'));
-    config.set('smtpeshka.haraka.config.build.dir', path.join(tempDir, 'haraka'));
+    config.set('web.port', 12580);
+    config.set('SMTP.port', 12525);
+    config.set('transport.json.saveto', path.join(tempDir, 'sent-emails'));
+    config.set('haraka.config.build.dir', path.join(tempDir, 'haraka'));
 
     return config;
 };
