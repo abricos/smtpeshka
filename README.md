@@ -1,6 +1,7 @@
 # smtpeshka [![Build Status](https://travis-ci.org/abricos/smtpeshka.svg?branch=master)](https://travis-ci.org/abricos/smtpeshka)
 
-[![NPM](https://nodei.co/npm/smtpeshka.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/smtpeshka/)
+[![NPM](https://nodei.co/npm/smtpeshka.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/smtpeshka/)&nbsp;&nbsp;
+[![wercker status](https://app.wercker.com/status/1b458d29b01ba9ea9fe948b48b7d74b7/m "wercker status")](https://app.wercker.com/project/bykey/1b458d29b01ba9ea9fe948b48b7d74b7)
 
 Virtual SMTP-server for debugging mail messages third-party applications
 
