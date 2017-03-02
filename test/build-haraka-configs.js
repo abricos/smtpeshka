@@ -12,7 +12,7 @@ describe('SMTPeshka Build configs for Haraka', function(){
     var harakaConfig;
 
     before(function(done){
-        testConfig();
+        testConfig.clean();
         done();
     });
 
@@ -41,7 +41,5 @@ describe('SMTPeshka Build configs for Haraka', function(){
 
             done();
         });
-
     });
-
 });

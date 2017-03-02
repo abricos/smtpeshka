@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path');
+var spawn = require('child_process').spawn;
 
 var HarakaConfig = require('./lib/HarakaConfig');
 
@@ -21,23 +22,48 @@ module.exports.start = function(callback){
         // start web server
         var webServer = require(webServerPath);
 
-        var harakaProgDir = path.join(base, 'node_modules/Haraka')
+        var harakaScript = path.join(base, 'node_modules/Haraka/bin/haraka');
+        var haraka = spawn(harakaScript, ['-c', harakaConfigDir]);
+        var isStartHaraka = false;
 
-        var harakaPath = path.join(harakaProgDir, 'server.js');
+        haraka.stdout.on('data', function(data){
+            if (data.toString().match(/Starting up Haraka/)){
+                isStartHaraka = true;
+            }
+        });
 
-        process.argv[1] = harakaPath;
-        process.env.HARAKA = harakaConfigDir;
+        haraka.stderr.on('data', function(data){
+            console.log('ERROR (Haraka) : ' + data);
+        });
 
-        // start SMTP Hakara server
-        var harakaServer = require(harakaPath);
-        harakaServer.createServer();
+        process.on("SIGINT", function(){
+            haraka.kill("SIGINT");
+        });
+
+        haraka.on("exit", function(code){
+            process.exit(code);
+        });
 
         _servers = {
             web: webServer,
-            haraka: harakaServer
+            haraka: haraka
         };
 
-        return callback ? callback(_servers) : null;
+        var timeCounter = 0;
+        var waiting = setInterval(function(){
+
+            timeCounter++;
+            if (timeCounter > 100){
+                module.exports.stop();
+                throw new Error('Haraka server not started');
+            }
+
+            if (isStartHaraka){
+                clearInterval(waiting);
+                callback ? callback(_servers) : null;
+            }
+
+        }, 100);
     });
 
 };
@@ -47,6 +73,7 @@ module.exports.stop = function(){
         return;
     }
     _servers.web.close();
-    _servers.haraka.close();
+    _servers.haraka.kill();
+    _servers = null;
 };
 

@@ -3,25 +3,15 @@
 var gulp = require('gulp');
 var mocha = require('gulp-mocha');
 var cover = require('gulp-coverage');
-var jsdoc = require('gulp-jsdoc');
+var jsdoc = require('gulp-jsdoc3');
 var subtree = require('gulp-subtree');
 var del = require('del');
 var vinylPaths = require('vinyl-paths');
 
-var opts = {
-    mocha: {
-        reporter: 'spec',
-        globals: [
-            'setImmediate',
-            'clearImmediate'
-        ]
-    }
-};
-
 gulp.task('test', function(){
     return gulp
-        .src(['test/*.js'])
-        .pipe(mocha(opts.mocha));
+        .src(['test/*.js'], {read: false})
+        .pipe(mocha());
 });
 
 gulp.task('watch', function(){
@@ -31,21 +21,16 @@ gulp.task('watch', function(){
     });
 });
 
-function coverage(tests, output){
-    return gulp
-        .src(tests, {read: false})
+gulp.task('coverage', function(){
+    return gulp.src(['test/*.js'], {read: false})
         .pipe(cover.instrument({
             pattern: ['index.js', 'lib/**.js'],
             debugDirectory: 'debug'
         }))
-        .pipe(mocha(opts.mocha))
-        .pipe(cover.report({
-            outFile: output
-        }));
-}
-
-gulp.task('coverage', function(){
-    return coverage(['test/*.js'], 'test/coverage.html');
+        .pipe(mocha())
+        .pipe(cover.gather())
+        .pipe(cover.format())
+        .pipe(gulp.dest('reports'));
 });
 
 gulp.task('clean-docs', function(){
@@ -53,22 +38,10 @@ gulp.task('clean-docs', function(){
         .pipe(vinylPaths(del));
 });
 
-gulp.task('make-docs', function(){
-    return gulp.src(['index.js', 'lib/**/*.js', 'README.md'])
+gulp.task('make-docs', function(cb){
+    return gulp.src(['index.js', 'lib/**/*.js', 'README.md'], {read: false})
         .pipe(jsdoc('./docs'));
 });
-
-/*
-gulp.task('publish-docs', function(){
-    return gulp
-        .src('docs')
-        .pipe(subtree({
-            remote: 'origin',
-            branch: 'master',
-            message: 'Updating docs'
-        }));
-});
-/**/
 
 gulp.task('docs', ['clean-docs', 'make-docs']);
 

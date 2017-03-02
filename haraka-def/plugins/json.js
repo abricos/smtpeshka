@@ -1,7 +1,7 @@
 var MailParser = require("mailparser").MailParser;
-var fs = require('fs');
 var fse = require('fs-extra');
 var path = require('path');
+var md5 = require('md5');
 
 exports.hook_rcpt = function(next, connection, params){
     next(OK);
@@ -24,7 +24,9 @@ exports.hook_queue = function(next, connection){
             next(OK);
         }
 
-        var file = path.join(saveToDir, obj.messageId + '.json');
+        obj.messageIdHash = md5(obj.messageId);
+
+        var file = path.join(saveToDir, obj.messageIdHash + '.json');
         try {
             fse.ensureDirSync(saveToDir);
             fse.writeJSONFileSync(file, obj);

@@ -7,6 +7,7 @@ var path = require('path');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var request = require('request');
+var md5 = require('md5');
 
 var testConfig = require('./lib/testConfig');
 
@@ -16,16 +17,16 @@ describe('SMTPeshka Servers', function(){
 
     var config;
     var email = {
-        from: 'from@smtpeshka.com',
-        to: 'to@smtpeshka.com',
+        from: 'from@smtpeshka.local',
+        to: 'to@smtpeshka.local',
         subject: 'Hello my friend',
         text: 'This is a very important message for you!'
     };
-    var messageId;
+    var messageIdHash;
     var fileSavedEMail;
 
     before(function(done){
-        config = testConfig();
+        config = testConfig.clean();
         smtpeshka.start(function(){
             done();
         });
@@ -36,6 +37,7 @@ describe('SMTPeshka Servers', function(){
         testConfig.clean();
         done();
     });
+
     describe('SMTP-server by Haraka', function(){
 
         it('should be sended e-mail', function(done){
@@ -52,7 +54,7 @@ describe('SMTPeshka Servers', function(){
 
                 info.should.have.property('messageId');
 
-                messageId = info.messageId;
+                messageIdHash = md5(info.messageId);
                 done();
             });
         });
@@ -60,7 +62,7 @@ describe('SMTPeshka Servers', function(){
         it('should be e-mail saved in a JSON file', function(done){
 
             var sentDir = config.get('transport.json.saveto');
-            var file = path.join(sentDir, messageId + '.json');
+            var file = path.join(sentDir, messageIdHash + '.json');
             var fExist = fs.existsSync(file);
 
             fExist.should.be.true;
@@ -76,7 +78,7 @@ describe('SMTPeshka Servers', function(){
         });
 
         it('should be coincident values between sent and JSON emails', function(done){
-            should.equal(messageId, fileSavedEMail.messageId);
+            should.equal(messageIdHash, fileSavedEMail.messageIdHash);
             should.equal(email.subject, fileSavedEMail.subject);
 
             done();
@@ -98,6 +100,7 @@ describe('SMTPeshka Servers', function(){
                 should.equal(response.statusCode, 200);
 
                 var json = JSON.parse(body);
+
                 should.exist(json);
                 json.should.be.an.Array;
 
@@ -105,22 +108,24 @@ describe('SMTPeshka Servers', function(){
             });
         });
 
-        it('should request e-mail by messageId (http://localhost:8025/api/email/:messageId)', function(done){
+        it('should request e-mail by messageIdHash (http://localhost:8025/api/email/:messageIdHash)', function(done){
 
             var port = config.get('web.port');
             var host = 'localhost';
-            var uri = 'http://' + host + ':' + port + '/api/email/' + messageId;
+            var uri = 'http://' + host + ':' + port + '/api/email/' + messageIdHash;
 
             request(uri, function(err, response, body){
+
                 should.not.exist(err);
                 should.exist(response);
+                should.exist(body);
 
                 should.equal(response.statusCode, 200);
 
                 var json = JSON.parse(body);
                 should.exist(json);
 
-                should.equal(json.messageId, messageId);
+                should.equal(json.messageIdHash, messageIdHash);
 
                 done();
             });
